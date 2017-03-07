@@ -110,13 +110,17 @@ var PaginationBoxView = function (_Component) {
 
           page = _index + 1;
 
+          var path = _this.props.baseUrl.includes('?') ? _this.props.baseUrl + '&' + _this.props.pageParamName + '=' : _this.props.baseUrl + '?' + _this.props.pageParamName + '=';
+
           var pageView = _react2.default.createElement(_PageView2.default, {
             onClick: _this.handlePageSelected.bind(null, _index),
             selected: _this.state.selected === _index,
             pageClassName: _this.props.pageClassName,
             pageLinkClassName: _this.props.pageLinkClassName,
             activeClassName: _this.props.activeClassName,
-            page: _index + 1 });
+            page: _index + 1,
+            baseUrl: path + (_index + 1)
+          });
 
           if (page <= _this.props.marginPagesDisplayed) {
             items['key' + _index] = pageView;
@@ -181,6 +185,8 @@ var PaginationBoxView = function (_Component) {
 
       var nextClasses = (0, _classnames2.default)(this.props.nextClassName, _defineProperty({}, disabled, this.state.selected === this.props.pageCount - 1));
 
+      var path = this.props.baseUrl.includes('?') ? this.props.baseUrl + '&' + this.props.pageParamName + '=' : this.props.baseUrl + '?' + this.props.pageParamName + '=';
+
       return _react2.default.createElement(
         'ul',
         { className: this.props.containerClassName },
@@ -193,8 +199,8 @@ var PaginationBoxView = function (_Component) {
               className: this.props.previousLinkClassName,
               tabIndex: '0',
               onKeyPress: this.handlePreviousPage,
-              href: 'hogehoge'
-             },
+              href: path + (this.state.selected - 1)
+            },
             this.props.previousLabel
           )
         ),
@@ -208,8 +214,8 @@ var PaginationBoxView = function (_Component) {
               className: this.props.nextLinkClassName,
               tabIndex: '0',
               onKeyPress: this.handleNextPage,
-              href: 'hogehoge'
-             },
+              href: path + (this.state.selected + 1)
+            },
             this.props.nextLabel
           )
         )
@@ -240,7 +246,9 @@ PaginationBoxView.propTypes = {
   previousLinkClassName: _react.PropTypes.string,
   nextLinkClassName: _react.PropTypes.string,
   disabledClassName: _react.PropTypes.string,
-  breakClassName: _react.PropTypes.string
+  breakClassName: _react.PropTypes.string,
+  baseUrl: _react.PropTypes.string,
+  pageParamName: _react.PropTypes.string
 };
 PaginationBoxView.defaultProps = {
   pageCount: 10,
@@ -253,7 +261,9 @@ PaginationBoxView.defaultProps = {
   nextLabel: "Next",
   breakLabel: "...",
   disabledClassName: "disabled",
-  disableInitialCallback: false
+  disableInitialCallback: false,
+  baseUrl: "/",
+  pageParamName: "page"
 };
 exports.default = PaginationBoxView;
 ;
