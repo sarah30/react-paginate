@@ -192,7 +192,9 @@ var PaginationBoxView = function (_Component) {
             { onClick: this.handlePreviousPage,
               className: this.props.previousLinkClassName,
               tabIndex: '0',
-              onKeyPress: this.handlePreviousPage },
+              onKeyPress: this.handlePreviousPage,
+              href: 'hogehoge'
+             },
             this.props.previousLabel
           )
         ),
@@ -205,7 +207,9 @@ var PaginationBoxView = function (_Component) {
             { onClick: this.handleNextPage,
               className: this.props.nextLinkClassName,
               tabIndex: '0',
-              onKeyPress: this.handleNextPage },
+              onKeyPress: this.handleNextPage,
+              href: 'hogehoge'
+             },
             this.props.nextLabel
           )
         )

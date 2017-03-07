@@ -29,7 +29,9 @@ export default class PaginationBoxView extends Component {
     previousLinkClassName : PropTypes.string,
     nextLinkClassName     : PropTypes.string,
     disabledClassName     : PropTypes.string,
-    breakClassName        : PropTypes.string
+    breakClassName        : PropTypes.string,
+    baseUrl               : PropTypes.string,
+    pageParamName         : PropTypes.string,
   };
 
   static defaultProps = {
@@ -43,7 +45,9 @@ export default class PaginationBoxView extends Component {
     nextLabel             : "Next",
     breakLabel            : "...",
     disabledClassName     : "disabled",
-    disableInitialCallback: false
+    disableInitialCallback: false,
+    baseUrl               : "/",
+    pageParamName         : "page"
   };
 
   constructor(props) {
@@ -138,6 +142,8 @@ export default class PaginationBoxView extends Component {
 
         page = index + 1;
 
+        let path = this.props.baseUrl.includes('?') ? (this.props.baseUrl + '&' + this.props.pageParamName + '=') : (this.props.baseUrl + '?' + this.props.pageParamName + '=')
+
         let pageView = (
           <PageView
             onClick={this.handlePageSelected.bind(null, index)}
@@ -145,7 +151,9 @@ export default class PaginationBoxView extends Component {
             pageClassName={this.props.pageClassName}
             pageLinkClassName={this.props.pageLinkClassName}
             activeClassName={this.props.activeClassName}
-            page={index + 1} />
+            page={index + 1}
+            baseUrl={path+(index + 1)}
+             />
         );
 
         if (page <= this.props.marginPagesDisplayed) {
@@ -192,13 +200,17 @@ export default class PaginationBoxView extends Component {
     const nextClasses = classNames(this.props.nextClassName,
                                    {[disabled]: this.state.selected === this.props.pageCount - 1});
 
+   let path = this.props.baseUrl.includes('?') ? (this.props.baseUrl + '&' + this.props.pageParamName + '=') : (this.props.baseUrl + '?' + this.props.pageParamName + '=')
+
     return (
       <ul className={this.props.containerClassName}>
         <li className={previousClasses}>
           <a onClick={this.handlePreviousPage}
              className={this.props.previousLinkClassName}
              tabIndex="0"
-             onKeyPress={this.handlePreviousPage}>
+             onKeyPress={this.handlePreviousPage}
+             href={path+(this.state.selected-1)}
+             >
             {this.props.previousLabel}
           </a>
         </li>
@@ -209,7 +221,9 @@ export default class PaginationBoxView extends Component {
           <a onClick={this.handleNextPage}
              className={this.props.nextLinkClassName}
              tabIndex="0"
-             onKeyPress={this.handleNextPage}>
+             onKeyPress={this.handleNextPage}
+             href={path+(this.state.selected+1)}
+             >
             {this.props.nextLabel}
           </a>
         </li>

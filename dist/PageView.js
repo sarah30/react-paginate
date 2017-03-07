@@ -50,7 +50,9 @@ var PageView = function (_React$Component) {
           { onClick: onClick,
             className: linkClassName,
             tabIndex: '0',
-            onKeyPress: onClick },
+            onKeyPress: onClick,
+            href: 'hogehoge'
+           },
           this.props.page
         )
       );
