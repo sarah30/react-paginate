@@ -202,6 +202,16 @@ export default class PaginationBoxView extends Component {
 
    let path = this.props.baseUrl.includes('?') ? (this.props.baseUrl + '&' + this.props.pageParamName + '=') : (this.props.baseUrl + '?' + this.props.pageParamName + '=')
 
+   let prev_href = path+(this.state.selected)
+   let next_href = path+(this.state.selected+2)
+
+   if (this.state.selected === 0) {
+      prev_href = ""
+   }
+   if (this.state.selected === this.props.pageCount - 1) {
+      next_href = ""
+   }
+
     return (
       <ul className={this.props.containerClassName}>
         <li className={previousClasses}>
@@ -209,7 +219,7 @@ export default class PaginationBoxView extends Component {
              className={this.props.previousLinkClassName}
              tabIndex="0"
              onKeyPress={this.handlePreviousPage}
-             href={path+(this.state.selected-1)}
+             href={prev_href}
              >
             {this.props.previousLabel}
           </a>
@@ -222,7 +232,7 @@ export default class PaginationBoxView extends Component {
              className={this.props.nextLinkClassName}
              tabIndex="0"
              onKeyPress={this.handleNextPage}
-             href={path+(this.state.selected+1)}
+             href={next_href}
              >
             {this.props.nextLabel}
           </a>
