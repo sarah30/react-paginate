@@ -128,7 +128,9 @@ var PaginationBoxView = function (_Component) {
           }
 
           if (page > _this.props.pageCount - _this.props.marginPagesDisplayed) {
-            items['key' + _index] = pageView;
+            if (!_this.props.hideTailPages) {
+              items['key' + _index] = pageView;
+            }
             continue;
           }
 
@@ -146,8 +148,9 @@ var PaginationBoxView = function (_Component) {
               breakLabel: _this.props.breakLabel,
               breakClassName: _this.props.breakClassName
             });
-
-            items['key' + _index] = breakView;
+            if (_index == 1) {
+              items['key' + _index] = breakView;
+            }
           }
         }
       }
@@ -258,7 +261,8 @@ PaginationBoxView.propTypes = {
   disabledClassName: _react.PropTypes.string,
   breakClassName: _react.PropTypes.string,
   baseUrl: _react.PropTypes.string,
-  pageParamName: _react.PropTypes.string
+  pageParamName: _react.PropTypes.string,
+  hideTailPages: _react.PropTypes.bool
 };
 PaginationBoxView.defaultProps = {
   pageCount: 10,
@@ -273,7 +277,8 @@ PaginationBoxView.defaultProps = {
   disabledClassName: "disabled",
   disableInitialCallback: false,
   baseUrl: "/",
-  pageParamName: "page"
+  pageParamName: "page",
+  hideTailPages: false
 };
 exports.default = PaginationBoxView;
 ;
