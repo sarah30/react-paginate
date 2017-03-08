@@ -73,12 +73,14 @@ export class App extends Component {
                        breakLabel={<a href="">...</a>}
                        breakClassName={"break-me"}
                        pageCount={this.state.pageCount}
-                       marginPagesDisplayed={2}
+                       marginPagesDisplayed={1}
                        pageRangeDisplayed={5}
                        onPageChange={this.handlePageClick}
                        containerClassName={"pagination"}
                        subContainerClassName={"pages pagination"}
-                       activeClassName={"active"} />
+                       activeClassName={"active"}
+                       hideTailPages={true}
+                        />
       </div>
     );
   }

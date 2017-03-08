@@ -32,6 +32,7 @@ export default class PaginationBoxView extends Component {
     breakClassName        : PropTypes.string,
     baseUrl               : PropTypes.string,
     pageParamName         : PropTypes.string,
+    hideTailPages         : PropTypes.bool,
   };
 
   static defaultProps = {
@@ -47,7 +48,8 @@ export default class PaginationBoxView extends Component {
     disabledClassName     : "disabled",
     disableInitialCallback: false,
     baseUrl               : "/",
-    pageParamName         : "page"
+    pageParamName         : "page",
+    hideTailPages         : false,
   };
 
   constructor(props) {
@@ -162,7 +164,9 @@ export default class PaginationBoxView extends Component {
         }
 
         if (page > this.props.pageCount - this.props.marginPagesDisplayed) {
-          items['key' + index] = pageView;
+          if (!this.props.hideTailPages){
+            items['key' + index] = pageView;
+          }
           continue;
         }
 
@@ -182,8 +186,9 @@ export default class PaginationBoxView extends Component {
               breakClassName={this.props.breakClassName}
             />
           );
-
-          items['key' + index] = breakView;
+          if (index == 1) {
+            items['key' + index] = breakView;
+          }
         }
       }
     }
